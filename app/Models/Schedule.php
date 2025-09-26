@@ -21,7 +21,8 @@ class Schedule extends Model
      */
     protected $fillable = [
         'client_id',
-        'start_date'
+        'start_date',
+        'type'
     ];
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function teste(Request $request) {
+    public function create(Request $request) {
 
         $validated = $request->validate([
             'phone' => ['required', 'string', 'max:11'],

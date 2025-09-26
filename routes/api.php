@@ -19,7 +19,7 @@ Route::get('/user', function (Request $request) {
  * Exemplo: http://127.0.0.1:8000/api/auth/login 
  */
 
-Route::prefix('auth', function(){
+Route::prefix('auth')->group(function() {
 
     Route::post('/register', [AuthController::class, 'register']);
 
@@ -27,13 +27,26 @@ Route::prefix('auth', function(){
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::put('/update', [AuthController::class, 'update']); //falta criar a lógica
+
+    Route::put('/delete', [AuthController::class, 'delete']); //falta criar a lógica
+
 });
 
-Route::prefix('schedule', function() {
+Route::prefix('schedule')->group(function() {
 
     Route::post('/create', [ScheduleController::class, 'create']);
 
-    Route::get('/show', [ScheduleController::class, 'show']); //falta criar a lógica
+    #nessa rota eu posso procurar por um agendamento em especifico baseado no ID
+    Route::get('/show/{id}', [ScheduleController::class, 'show']);
+
+    #ja nessa eu posso listar todos os agendamentos disponiveis
+    Route::get('/show', [ScheduleController::class, 'showAll']);
 });
 
-Route::post('teste', [ClientController::class, 'teste']);
+Route::prefix('client')->group(function() {
+
+    Route::post('create', [ClientController::class, 'create']);
+
+});
+

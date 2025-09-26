@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
@@ -28,7 +27,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => Hash::make($validated['password']), //cria um hash com a senha (criptografia irreversível) para armazenar no banco
+            'password' => $validated['password'], 
             'user_type_id' => $validated['user_type_id']
         ]);
 
@@ -58,12 +57,12 @@ class AuthController extends Controller
 
             /*
             chamo a função do model User para verificar as credenciais,
-            o 'firsOrFail()' serve para retornar o erro caso necessário
+            o 'firstOrFail()' serve para retornar o erro caso necessário
             */
-            $user = User::where('email', $validated('email'), 'password', $validated('password'));
+            $user = User::where('email', $validated['email'])->firstOrFail();
 
-            $token = $user->createToken('token-api', ['post::create']);
-            return response()->json(['logado' => true, 'token' => $token]);
+            $token = $user->createToken('token-api');
+            return response()->json(['user' => $user, 'logado' => true, 'token' => $token]);
         }
 
         #caso as credenciais acima estejam erradas vai retornar um erro em formato json
@@ -92,5 +91,13 @@ class AuthController extends Controller
         #caso o token ainda esteja disponível ele irá apagar, fazendo assim o logout do user
         $accessToken->delete();
         return response()->json(['logout' => true, 'mensagem' => 'logout realizado com sucesso']);
+    }
+
+    public function update() {
+        //
+    }
+
+    public function delete() {
+        //
     }
 }
