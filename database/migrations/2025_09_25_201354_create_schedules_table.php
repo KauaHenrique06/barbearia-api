@@ -17,8 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
 
-            $table->dateTime('start_date', precision:0);
-            $table->date('end_date');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->timestamps();
         });
     }
 

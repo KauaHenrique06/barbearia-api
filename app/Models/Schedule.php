@@ -15,4 +15,20 @@ class Schedule extends Model
 
         return $this->belongsTo(Client::class);
     }
+
+    /**
+     * Indica os campos que devem ser preenchidos para o banco
+     */
+    protected $fillable = [
+        'client_id',
+        'start_date'
+    ];
+
+    /**
+     * O $guarded indica variáveis que não são obrigatórias enviar de primeiro momento
+     * nesse caso ela poderá ser alterada quando necessári
+     */
+    protected $guarded = [
+        'end_date'
+    ];
 }

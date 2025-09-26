@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->string('phone', 11);
+            $table->string('phone', 11)->unique();
             $table->string('address', 60);
             $table->string('city', 20);
             $table->timestamps();
