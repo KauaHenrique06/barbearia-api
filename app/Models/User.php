@@ -34,7 +34,8 @@ class User extends Authenticatable
     }
 
     /**
-     * The attributes that are mass assignable.
+     * Informa os campos que devem ser preenchidos ao enviar dados em 
+     * massa para o banco de dados
      *
      * @var list<string>
      */

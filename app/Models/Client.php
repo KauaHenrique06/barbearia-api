@@ -26,6 +26,10 @@ class Client extends Model
         return $this->hasMany(Schedule::class);
     }
 
+    /**
+     * Informa os campos que devem ser preenchidos ao enviar dados em 
+     * massa para o banco de dados
+     */
     protected $fillable = [
         'phone',
         'address',
