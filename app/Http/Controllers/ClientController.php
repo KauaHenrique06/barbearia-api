@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -58,7 +57,28 @@ class ClientController extends Controller
     }
  
     public function update(Request $request, $id) {
-        //
+        
+        #para atualizar dados eu precido verificar os dados assim como os outros para validar os dados novos
+        $validated = $request->validate([
+            'phone' => ['required', 'string', 'max:11'],
+            'address' => ['required', 'string', 'max:100'],
+            'city' => ['required', 'string', 'max:100']
+        ]);
+
+        #chama o método que vai procurar no banco os dados do id passado na requisição 
+        $client = Client::findOrFail($id);
+
+        if(!$client) {
+
+            return response()->json(['atualizado' => false, 'mensagem' => "usuário de id: $id não cadastrado"]);
+
+        }
+
+        #chamo o método update nos dados que estão armazenados dentro da variavel $validated
+        $client->update($validated);
+
+        return response()->json(['atualizado' => true, 'mensagem' => 'dados atualizados com sucesso', 'dados' => $client]);
+
     }
 
     public function delete($id) {

@@ -38,6 +38,7 @@ Route::prefix('schedule')->group(function() {
 
     #ja nessa eu posso listar todos os agendamentos disponiveis
     Route::get('/show', [ScheduleController::class, 'showAll']);
+    
 });
 
 Route::prefix('client')->group(function() {
@@ -48,9 +49,9 @@ Route::prefix('client')->group(function() {
 
     Route::get('showAll', [ClientController::class, 'showAll']);
 
-    Route::put('/update/{id}', [ClientController::class, 'update']); //falta criar a lógica
+    Route::put('/update/{id}', [ClientController::class, 'update']); 
 
-    Route::delete('delete/{id}', [ClientController::class, 'delete']);  //falta criar a lógica
+    Route::delete('delete/{id}', [ClientController::class, 'delete']); 
 
 });
 
