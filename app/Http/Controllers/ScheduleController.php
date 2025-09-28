@@ -18,6 +18,7 @@ class ScheduleController extends Controller
             // 'end_date' => ['nullable', 'date']
         ]);
 
+        #após a validação chamo o método create() da classe Schedule para ja criar o registro pronto para armazenar no banco
         $schedule = Schedule::create([
             'client_id' => $validated['client_id'],
             'start_date' => $validated['start_date'],
@@ -37,6 +38,12 @@ class ScheduleController extends Controller
         #chamo o método findOrFail() para buscar os dados da tabela (levando em consideração o ID que foi passado)
         $schedule = Schedule::findOrFail($id);
 
+        if(!$schedule) {
+
+            return response()->json(['serviços' => "esse usuário não possui nenhum agendamento"]);
+
+        }
+
         return response()->json(["serviços do id: $id" => $schedule]);
 
     }
@@ -45,6 +52,12 @@ class ScheduleController extends Controller
 
         #chamo o método all() para buscar todos os dados da tabela e armazeno na variável
         $schedule = Schedule::all();
+
+        if(!$schedule) {
+
+            return response()->json(['serviços' => "nenhum cliente com serviço agendado no momento"]);
+
+        }
 
         #retorno em formato json os itens da tabela
         return response()->json(['todos os serviços' => $schedule]);

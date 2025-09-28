@@ -35,7 +35,7 @@ class AuthController extends Controller
         crio o token e armazeno na variável de mesmo nome
         após isso determino o nome do token e coloco a habilidade baseada no token
         */
-        $token = $user->createToken('token-api', ['post::create']); 
+        $token = $user->createToken('token-api'); 
 
         /*
         retorno para o usuário um json informando que foi registrado (caso tudo tenha sido preenchido corretamente),
@@ -93,11 +93,4 @@ class AuthController extends Controller
         return response()->json(['logout' => true, 'mensagem' => 'logout realizado com sucesso']);
     }
 
-    public function update() {
-        //
-    }
-
-    public function delete() {
-        //
-    }
 }

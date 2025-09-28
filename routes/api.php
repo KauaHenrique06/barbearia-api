@@ -27,10 +27,6 @@ Route::prefix('auth')->group(function() {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::put('/update', [AuthController::class, 'update']); //falta criar a lógica
-
-    Route::put('/delete', [AuthController::class, 'delete']); //falta criar a lógica
-
 });
 
 Route::prefix('schedule')->group(function() {
@@ -47,6 +43,14 @@ Route::prefix('schedule')->group(function() {
 Route::prefix('client')->group(function() {
 
     Route::post('create', [ClientController::class, 'create']);
+
+    Route::get('show/{id}', [ClientController::class, 'show']);
+
+    Route::get('showAll', [ClientController::class, 'showAll']);
+
+    Route::put('/update/{id}', [ClientController::class, 'update']); //falta criar a lógica
+
+    Route::delete('/delete/{id}', [ClientController::class, 'delete']);  //falta criar a lógica
 
 });
 
