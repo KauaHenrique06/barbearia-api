@@ -50,7 +50,7 @@ Route::prefix('client')->group(function() {
 
     Route::put('/update/{id}', [ClientController::class, 'update']); //falta criar a lógica
 
-    Route::delete('/delete/{id}', [ClientController::class, 'delete']);  //falta criar a lógica
+    Route::delete('delete/{id}', [ClientController::class, 'delete']);  //falta criar a lógica
 
 });
 

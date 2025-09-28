@@ -57,7 +57,7 @@ class ClientController extends Controller
 
     }
  
-    public function update($id) {
+    public function update(Request $request, $id) {
         //
     }
 

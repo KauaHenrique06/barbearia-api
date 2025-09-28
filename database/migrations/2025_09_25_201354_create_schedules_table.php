@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
 
+            #defino o método onDelete como 'cascade' para quando apagar algum registro da tabela pai 'clients' também apagar daqui
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
 
             $table->date('start_date');
             $table->date('end_date')->nullable();
