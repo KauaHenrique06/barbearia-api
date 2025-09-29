@@ -74,7 +74,7 @@ class ScheduleController extends Controller
 
         $schedule->delete();
 
-        return response()->json(['deleted' => true, 'mensagem' => "agendamento excluido", 'schedule' => $schedule]);
+        return response()->json(['deleted' => true, 'mensagem' => "agendamento excluido"]);
 
     }
 

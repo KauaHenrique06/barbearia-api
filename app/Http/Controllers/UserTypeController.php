@@ -48,4 +48,27 @@ class UserTypeController extends Controller
         return response()->json(['deleted' => true, 'mensagem' => "userType de id: $id excluido"]);
 
     }
+
+    public function update(Request $request, $id) {
+
+        $validated = $request->validate([
+
+            'type' => ['required', 'string']
+
+        ]);
+
+        $userType = UserType::findOrFail($id);
+
+        if(!$userType) {
+
+            return response()->json(['atualizado' => false, 'mensagem' => "id: $id não encontrado"]);
+
+        }
+
+        $userType->update($validated);
+
+        return response()->json(['atualizado' => true, 'mensagem' => 'dados atualizados com sucesso', 'dados' => $userType]);
+
+    }
+
 }
