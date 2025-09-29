@@ -29,8 +29,14 @@ Provavelmente retornará um comando pareciido em caso de êxito
   2025_09_25_201303_create_clients_table .............................................................. 61.24ms DONE
   2025_09_25_201354_create_schedules_table ............................................................ 53.68ms DONE
 ```
+## Para abrir a documentação dos Endpoints
+- Abrir o link `856j4f7ba4.apidog.io` no navegador para abrir o Apidog online
+- Na parte de baixo da página terá a opção de 'exportar dados'
+- Escolha a opção OpenAPI Spec e OpenAPI 3.0, isso irá gerar um arquivo Json
+- Abra o site do swagger `https://editor.swagger.io/`, limpe o código padrão que é gerado e abra o arquivo Json baixado
+
 ## Endpoints do sistema
-### Endpoints do UserType (Criação, Listagem e Exclusão) em ordem
+### Endpoints do UserType (Criação, Listagem, Exclusão e Atualização) em ordem
 - ```
   http://127.0.0.1:8000/api/usertype/create
   
@@ -73,12 +79,32 @@ Provavelmente retornará um comando pareciido em caso de êxito
   }
   ```
 - ```
-  http://127.0.0.1:8000/api/usertype/delete
+  http://127.0.0.1:8000/api/usertype/delete/{id}
   
   //PASSAR O ID NA HORA DE FAZER A REQUISIÇÃO /{id}
   {
     "deleted": true,
     "mensagem": "userType de id: 1 excluido"
+  }
+  ```
+- ```
+  http://127.0.0.1:8000/api/usertype/update{id}
+  
+  //PASSAR O ID NA HORA DE FAZER A REQUISIÇÃO /{id}
+  {
+    "type": "admin1"
+  }
+
+  //RESPOSTA
+  {
+    "atualizado": true,
+    "mensagem": "dados atualizados com sucesso",
+    "dados": {
+        "id": 1,
+        "type": "admin1",
+        "created_at": "2025-09-29T13:26:13.000000Z",
+        "updated_at": "2025-09-29T15:58:52.000000Z"
+    }
   }
   ```
 ### Endpoints de Autenticação (Registro, Login e Logout) 
@@ -278,4 +304,71 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "updated_at": "2025-09-28T22:37:04.000000Z"
     }
   }
+  ```
+  ### Endpoints relacionados ao agendamento (Criar, Lisagem e Apagar)
+- ```
+    http://127.0.0.1:8000/api/schedule/create
+
+    //PASSAR NO CORPO
+    {
+        "client_id": 2,
+        "start_date": "2025-10-10",
+        "type": "corte e barba"
+    }
+
+    //RESPOSTA
+        {
+        "agendado": true,
+        "schedule": {
+            "client_id": 2,
+            "start_date": "2025-10-10",
+            "type": "corte e barba",
+            "updated_at": "2025-09-28T21:49:08.000000Z",
+            "created_at": "2025-09-28T21:49:08.000000Z",
+            "id": 1
+        }
+    }
+  ```
+- ```
+    http://127.0.0.1:8000/api/schedule/show
+
+    //RESPOSTA
+    {
+        "todos os serviços": [
+            {
+                "id": 1,
+                "client_id": 2,
+                "start_date": "2025-10-10",
+                "end_date": null,
+                "type": "corte e barba",
+                "created_at": "2025-09-28T21:49:08.000000Z",
+                "updated_at": "2025-09-28T21:49:08.000000Z"
+            }
+        ]
+    }
+  ```
+- ```
+    http://127.0.0.1:8000/api/schedule/show/{id}
+
+    //RESPOSTA
+       {
+        "serviços do id: 2": {
+            "id": 2,
+            "client_id": 3,
+            "start_date": "2025-10-11",
+            "end_date": null,
+            "type": "corte",
+            "created_at": "2025-09-28T21:51:22.000000Z",
+            "updated_at": "2025-09-28T21:51:22.000000Z"
+        }
+    }
+  ```
+- ```
+    http://127.0.0.1:8000/api/schedule/delete/{id}
+
+    //RESPOSTA
+    {
+        "deleted": true,
+        "mensagem": "agendamento excluido"
+    }
   ```
