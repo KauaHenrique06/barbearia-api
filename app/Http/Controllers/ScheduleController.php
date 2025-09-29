@@ -62,4 +62,20 @@ class ScheduleController extends Controller
 
     }
 
+    public function delete($id) {
+
+        $schedule = Schedule::find($id);
+
+        if(!$schedule) {
+
+            return response()->json(['deleted' => false, 'mensagem' => "agendamento de id: $id não encontrado"]);
+
+        }
+
+        $schedule->delete();
+
+        return response()->json(['deleted' => true, 'mensagem' => "agendamento excluido", 'schedule' => $schedule]);
+
+    }
+
 }

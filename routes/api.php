@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\UserTypeController;
+use App\Models\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,16 +31,14 @@ Route::prefix('auth')->group(function() {
 
 });
 
-Route::prefix('schedule')->group(function() {
+Route::prefix('userType')->group(function() {
 
-    Route::post('/create', [ScheduleController::class, 'create']);
+    Route::post('/create', [UserTypeController::class, 'create']);
 
-    #nessa rota eu posso procurar por um agendamento em especifico baseado no ID
-    Route::get('/show/{id}', [ScheduleController::class, 'show']);
+    Route::get('/showTypes', [UserTypeController::class, 'show']);
 
-    #ja nessa eu posso listar todos os agendamentos disponiveis
-    Route::get('/show', [ScheduleController::class, 'showAll']);
-    
+    Route::delete('/delete/{id}', [UserTypeController::class, 'delete']);
+
 });
 
 Route::prefix('client')->group(function() {
@@ -54,4 +54,20 @@ Route::prefix('client')->group(function() {
     Route::delete('delete/{id}', [ClientController::class, 'delete']); 
 
 });
+
+Route::prefix('schedule')->group(function() {
+
+    Route::post('/create', [ScheduleController::class, 'create']);
+
+    #nessa rota eu posso procurar por um agendamento em especifico baseado no ID
+    Route::get('/show/{id}', [ScheduleController::class, 'show']);
+
+    #ja nessa eu posso listar todos os agendamentos disponiveis
+    Route::get('/show', [ScheduleController::class, 'showAll']);
+
+    Route::delete('delete/{id}', [ScheduleController::class, 'delete']);
+
+});
+
+
 
