@@ -10,6 +10,8 @@
 - Depois dar um git clone no repositório: git clone `https://github.com/KauaHenrique06/barbearia-api.git`
 - Copie o arquivo `.env.example` e coloque o nome `.env`
 - Alterar os dados referentes ao banco de dados no arquivo `.env`
+- Dar o comando `composer install` para instalar as depedências do projeto
+- Dar o comando `php artisan key:generate` para liberar acesso para rodar o servidor comando `php artisan serve`
 ```
 Código gerado como padrão
 
