@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Services\ClientService;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function create(Request $request) {
 
-        $validated = $request->validate([
-            'phone' => ['required', 'string', 'max:11'],
-            'address' => ['required', 'string', 'max:100'],
-            'city' => ['required', 'string', 'max:100'],
-            'user_id' => ['required', 'int', 'exists:users,id']
-        ]);
+    protected ClientService $clientService;
 
-        $client = Client::create([
-            'phone' => $validated['phone'],
-            'address' => $validated['address'],
-            'city' => $validated['city'],
-            'user_id' => $validated['user_id']
-        ]);
+    public function __construct(ClientService $clientService)
+    {
+        $this->clientService = $clientService;
+    }
+
+    public function create(CreateClientRequest $request) {
+
+        $client = $this->clientService->create($request->validated());
 
         return response()->json(['client' => true, 'client' => $client]);
 
@@ -56,26 +55,11 @@ class ClientController extends Controller
 
     }
  
-    public function update(Request $request, $id) {
-        
-        #para atualizar dados eu precido verificar os dados assim como os outros para validar os dados novos
-        $validated = $request->validate([
-            'phone' => ['required', 'string', 'max:11'],
-            'address' => ['required', 'string', 'max:100'],
-            'city' => ['required', 'string', 'max:100']
-        ]);
+    public function update(UpdateClientRequest $request, $id) {
 
-        #chama o método que vai procurar no banco os dados do id passado na requisição 
-        $client = Client::findOrFail($id);
+        #para atualizar dados eu preciso verificar os dados assim como os outros para validar os dados novos
 
-        if(!$client) {
-
-            return response()->json(['atualizado' => false, 'mensagem' => "usuário de id: $id não cadastrado"]);
-
-        }
-
-        #chamo o método update nos dados que estão armazenados dentro da variavel $validated
-        $client->update($validated);
+        $client = $this->clientService->update($request->validated(), $id);
 
         return response()->json(['atualizado' => true, 'mensagem' => 'dados atualizados com sucesso', 'dados' => $client]);
 

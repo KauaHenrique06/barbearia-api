@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterScheduleRequest;
 use App\Models\Schedule;
+use App\Services\ScheduleService;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public function create(Request $request) {
-        
-        $validated = $request->validate([
-            'client_id' => ['required', 'int', 'exists:clients,id'],
-            'start_date' => ['required', 'date'],
-            'type' => ['required', 'string', 'max:50']
-            // 'end_date' => ['nullable', 'date']
-        ]);
 
-        #após a validação chamo o método create() da classe Schedule para ja criar o registro pronto para armazenar no banco
-        $schedule = Schedule::create([
-            'client_id' => $validated['client_id'],
-            'start_date' => $validated['start_date'],
-            'type' => $validated['type']
-            // 'end_date' => $validated['end_date']
-        ]);
+    protected ScheduleService $scheduleService;
+
+    public function __construct(ScheduleService $scheduleService)
+    {
+        $this->scheduleService = $scheduleService;
+    }
+
+    public function create(RegisterScheduleRequest $request) {
+        
+        $schedule = $this->scheduleService->create($request->validated());
 
         return response()->json(['agendado' => true, 'schedule' => $schedule]);
         

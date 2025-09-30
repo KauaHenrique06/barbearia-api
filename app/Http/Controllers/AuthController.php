@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -10,26 +12,19 @@ use Laravel\Sanctum\PersonalAccessToken;
 class AuthController extends Controller
 {
 
+    protected AuthService $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
      * Criação do Endpoint de registro de usuário com geração de token
      */
-    public function register(Request $request) {
+    public function register(RegisterUserRequest $request) {
 
-        #armazena os dados validados dentro de uma variavel $validated
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string'],
-            'password' => ['required', 'min:6', 'confirmed'],
-            'user_type_id' => ['required', 'int', 'between:1,2', 'exists:user_types,id'] 
-        ]);
-
-        #armazena dentro da variável $user os dados ja validados e prontos para ir para o banco
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'], 
-            'user_type_id' => $validated['user_type_id']
-        ]);
+        $user = $this->authService->register($request->validated());
 
         /*
         crio o token e armazeno na variável de mesmo nome
