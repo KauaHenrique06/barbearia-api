@@ -14,33 +14,34 @@
 - Alterar os dados referentes ao banco de dados no arquivo .env
 
 Código gerado como padrão
-
+```
 DB_CONNECTION=sqlite
 # DB_HOST=127.0.0.1
 # DB_PORT=3306  
 # DB_DATABASE=laravel
 # DB_USERNAME=root
 # DB_PASSWORD=
+```
 
 Exemplo do código ja formatado
-
+```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=db_barbearia //com o nome que preferir
 DB_USERNAME=root //nome de usuário do banco
 DB_PASSWORD=070506 //senha cadastrada no banco (caso possua uma)
+```
 
 - Logo depois de configurar a conexão com o banco é necessário criar as tabelas usando o comando: php artisan migrate
-
-Provavelmente retornará um comando pareciido em caso de êxito
-
+- Provavelmente retornará um comando pareciido em caso de êxito
+```
   2025_09_24_194159_create_user_types_table ........................................................... 17.77ms DONE
   2025_09_25_155930_create_users_table ............................................................... 146.61ms DONE
   2025_09_25_161249_create_personal_access_tokens_table ............................................... 65.31ms DONE
   2025_09_25_201303_create_clients_table .............................................................. 61.24ms DONE
   2025_09_25_201354_create_schedules_table ............................................................ 53.68ms DONE
-
+```
 ## Para abrir a documentação dos Endpoints
 - Abrir o link 856j4f7ba4.apidog.io no navegador para abrir o Apidog online
 - Na parte de baixo da página terá a opção de 'exportar dados'
@@ -50,7 +51,7 @@ Provavelmente retornará um comando pareciido em caso de êxito
 ## Endpoints do sistema
 ### Endpoints do UserType (Criação, Listagem, Exclusão e Atualização) em ordem
 - ` http://127.0.0.1:8000/api/usertype/create`
-
+```
   //PASSAR NO CORPO DA REQUISIÇÃO
   { 
     "type": "admin"
@@ -67,9 +68,10 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "id": 0
     }
   }
+```
 
-- http://127.0.0.1:8000/api/usertype/showTypes
-  
+- `http://127.0.0.1:8000/api/usertype/showTypes`
+```
   //RESPOSTA AO FAZER A REQUISIÇÃO
   {
     "userType": [
@@ -87,9 +89,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
         }
     ]
   }
-
-- http://127.0.0.1:8000/api/usertype/delete/{id}
-
+```
+- `http://127.0.0.1:8000/api/usertype/delete/{id}`
+```
   //PASSAR O ID NA HORA DE FAZER A REQUISIÇÃO /{id}
   {
     "deleted": true,
@@ -114,10 +116,10 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "updated_at": "2025-09-29T15:58:52.000000Z"
     }
   }
-
+```
 ### Endpoints de Autenticação (Registro, Login e Logout) 
-- http://127.0.0.1:8000/api/auth/register
- 
+- `http://127.0.0.1:8000/api/auth/register`
+```
   //ESTRUTURA DO CORPO
   {
     "name": "kaua",
@@ -154,9 +156,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "plainTextToken": "string"
     }
   }
-
-- http://127.0.0.1:8000/api/auth/login
-
+```
+- `http://127.0.0.1:8000/api/auth/login`
+```
   //CORPO DA REQUISIÇÃO
   {
     "email": "kaua@gmail.com",
@@ -192,9 +194,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "plainTextToken": "2|RmF7KlgzsWIGZvfJW76dbyF2GLeVW1PP4KUkwiLj375a6f00"
     }
   }
-
-- http://127.0.0.1:8000/api/auth/logout
-
+```
+- `http://127.0.0.1:8000/api/auth/logout`
+```
   //NECESSÁRIO PASSAR O TOKEN QUE FOI GERADO NO LOGIN NA PARTE DE AUTENTICAÇÃO 
 
   {
@@ -225,9 +227,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "id": 1
     }
   }
-
-- http://127.0.0.1:8000/api/client/show/{id}
-
+```
+- `http://127.0.0.1:8000/api/client/show/{id}`
+```
   //PASSAR O ID NA REQUISIÇÃO
   {
     "busca": true,
@@ -241,9 +243,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "updated_at": "2025-09-26T23:00:36.000000Z"
     }
   }
-
-- http://127.0.0.1:8000/api/client/show
-
+```
+- `http://127.0.0.1:8000/api/client/show`
+```
   //RESPOSTA
   {
     "todos os clientes": [
@@ -267,19 +269,17 @@ Provavelmente retornará um comando pareciido em caso de êxito
         }
     ]
   }
-
-
-- http://127.0.0.1:8000/api/client/delete/{id}
-
+```
+- `http://127.0.0.1:8000/api/client/delete/{id}`
+```
   //PASSAR O ID NA HORA DE FAZER A REQUISIÇÃO
   {
     "deleted": true,
     "mensagem": "usuário excluído com sucesso"
   }
-
-
-- http://127.0.0.1:8000/api/client/update/{id}
-
+```
+- `http://127.0.0.1:8000/api/client/update/{id}`
+```
   //PASSAR NO CORPO DA REQUISIÇÃO OS DADOS QUE DESEJA ALTERAR
   {
     "phone": "988346537",
@@ -301,10 +301,10 @@ Provavelmente retornará um comando pareciido em caso de êxito
         "updated_at": "2025-09-28T22:37:04.000000Z"
     }
   }
-
+```
   ### Endpoints relacionados ao agendamento (Criar, Lisagem e Apagar)
-- http://127.0.0.1:8000/api/schedule/create
-
+- `http://127.0.0.1:8000/api/schedule/create`
+```
     //PASSAR NO CORPO
     {
         "client_id": 2,
@@ -324,9 +324,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
             "id": 1
         }
     }
-
-- http://127.0.0.1:8000/api/schedule/show
-
+```
+- `http://127.0.0.1:8000/api/schedule/show`
+```
     //RESPOSTA
     {
         "todos os serviços": [
@@ -341,9 +341,9 @@ Provavelmente retornará um comando pareciido em caso de êxito
             }
         ]
     }
-
-- http://127.0.0.1:8000/api/schedule/show/{id}
-
+```
+- `http://127.0.0.1:8000/api/schedule/show/{id}`
+```
     //RESPOSTA
        {
         "serviços do id: 2": {
@@ -356,11 +356,12 @@ Provavelmente retornará um comando pareciido em caso de êxito
             "updated_at": "2025-09-28T21:51:22.000000Z"
         }
     }
-
-- http://127.0.0.1:8000/api/schedule/delete/{id}
-
+```
+- `http://127.0.0.1:8000/api/schedule/delete/{id}`
+```
     //RESPOSTA
     {
         "deleted": true,
         "mensagem": "agendamento excluido"
     }
+```
